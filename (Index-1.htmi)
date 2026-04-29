@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliteFit Gym - Premium Fitness Center</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #1a1a1a;
+            --secondary-black: #2d2d2d;
+            --accent-red: #e74c3c;
+            --red-light: #ff6b61;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-red);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%231a1a1a" width="1200" height="800"/><path fill="%23e74c3c" opacity="0.1" d="M0 400Q300 200 600 400T1200 400V800H0z"/><circle fill="%23ff6b61" opacity="0.05" cx="400" cy="300" r="150"/><circle fill="%232d2d2d" opacity="0.3" cx="800" cy="500" r="200"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-red);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(231, 76, 60, 0.6);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-red);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: var(--secondary-black);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background: var(--primary-black);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent-red);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, var(--accent-red), var(--red-light));
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-15px);
+        }
+
+        .price-header {
+            margin-bottom: 2rem;
+        }
+
+        .price-amount {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 1.1rem;
+        }
+
+        .pricing-features li i {
+            color: var(--accent-red);
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        /* Trainers Section */
+        .trainers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .trainer-card {
+            background: var(--secondary-black);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .trainer-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .trainer-image {
+            height: 300px;
+            background: linear-gradient(45deg, var(--accent-red), var(--red-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.1);
+        }
+
+        .trainer-info {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .trainer-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .trainer-role {
+            color: var(--accent-red);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .trainer-bio {
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--primary-black);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-red);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-red);
+            width: 40px;
+            margin-right: 1rem;
+        }
+
+        .contact-form {
+            background: var(--secondary-black);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-red);
+            color: var(--white);
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            text-align: center;
+            padding: 3rem 0 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: var(--secondary-black);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-red);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--primary-black);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 2rem;
+                transition: 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .pricing-grid,
+            .trainers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Active nav link */
+        .nav-links a.active {
+            color: var(--accent-red);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">EliteFit</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#trainers" class="nav-link">Trainers</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Body</h1>
+            <p>Join our premium fitness center and achieve your goals with world-class trainers, state-of-the-art equipment, and personalized training programs.</p>
+            <a href="#pricing" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing Plans</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="price-header">
+                        <div class="price-amount">₹999</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                    <h3>Basic</h3>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i>24/7 Gym Access</li>
+                        <li><i class="fas fa-check"></i>Basic Equipment</li>
+                        <li><i class="fas fa-check"></i>Free Parking</li>
+                        <li><i class="fas fa-times"></i>Personal Training</li>
+                        <li><i class="fas fa-times"></i>Nutrition Plan</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Choose Plan</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="price-header">
+                        <div class="price-amount">₹1999</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                    <h3>Pro <span style="font-size: 0.8rem; opacity: 0.8;">Most Popular</span></h3>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i>24/7 Gym Access</li>
+                        <li><i class="fas fa-check"></i>Premium Equipment</li>
+                        <li><i class="fas fa-check"></i>Group Classes</li>
+                        <li><i class="fas fa-check"></i>1 Personal Session/Week</li>
+                        <li><i class="fas fa-check"></i>Custom Nutrition Plan</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="background: var(--white); color: var(--accent-red);">Choose Plan</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="price-header">
+                        <div class="price-amount">₹2999</div>
+                        <div class="price-period">per month</div>
+                    </div>
+                    <h3>Elite</h3>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i>Everything in Pro</li>
+                        <li><i class="fas fa-check"></i>Unlimited Personal Training</li>
+                        <li><i class="fas fa-check"></i>Private Locker Room</li>
+                        <li><i class="fas fa-check"></i>Recovery Suite Access</li>
+                        <li><i class="fas fa-check"></i>Monthly Progress Reports</li>
+                    </ul>
+                    <a href="#contact" class="cta-button">Choose Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainers Section -->
+    <section id="trainers" class="trainers">
+        <div class="container">
+            <h2 class="section-title">Our Elite Trainers</h2>
+            <div class="trainers-grid">
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">Mike Johnson</h3>
+                        <div class="trainer-role">Head Strength Coach</div>
+                        <p class="trainer-bio">10+ years experience in powerlifting and strength training. Certified NSCA-CPT with a passion for building champions.</p>
+                    </div>
+                </div>
+
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">Sarah Lee</h3>
+                        <div class="trainer-role">Cardio & HIIT Specialist</div>
+                        <p class="trainer-bio">CrossFit Level 2 Trainer and marathon runner. Specializes in fat loss and endurance training programs.</p>
+                    </div>
+                </div>
+
+                <div class="trainer-card">
+                    <div class="trainer-image">
+                        <i class="fas fa-weight-hanging"></i>
+                    </div>
+                    <div class="trainer-info">
+                        <h3 class="trainer-name">David Chen</h3>
+                        <div class="trainer-role">Bodybuilding Coach</div>
+                        <p class="trainer-bio">IFBB Pro competitor with expertise in hypertrophy training and contest prep. Former Mr. Universe finalist.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Ready to start your journey?</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>kachaira bayana </h4>
+                            <p>bharatpur rajasthan </p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>+91 8769488989</h4>
+                            <p>Mon - Fri 6AM - 10PM</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>mmohit00967@gmail.com</h4>
+                            <p>We'll respond within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+                <form cl
